@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:travel_mitra/components/custom_button.dart';
+import 'package:travel_mitra/utilities/btn_function.dart';
 
 class HomePage extends StatefulWidget{
   @override
@@ -31,7 +32,7 @@ class HomePageState extends State<HomePage>{
 
     menuList.forEach((btnDtls){
       print (btnDtls["btnText"]);
-      btnColumns.add(CustomElevatedBtn(btnText: btnDtls["btnText"], btnFunction: _getBtnFunction(btnDtls["btnFunction"])));
+      btnColumns.add(CustomElevatedBtn(btnText: btnDtls["btnText"], btnFunction: _getBtnFunction(btnDtls["btnFunction"],context)));
     });
 
     
@@ -53,10 +54,11 @@ class HomePageState extends State<HomePage>{
 
 // Custom function for the button execution while pressed on the screen
 
-Object _getBtnFunction(functionType){
+Object _getBtnFunction(functionType,BuildContext context){
+    BtnFunction fncts = new BtnFunction();
 
     if(functionType == "trainFunction")
-      return ()=>_btnFunction("train");
+      return ()=> fncts.trainPageFn(context);
     else if(functionType == "busFunction")
       return ()=>_btnFunction("bus");
     else 
